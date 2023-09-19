@@ -20,7 +20,7 @@ public class InsertDatabase {
         Connection conn = null;
         String url = "jdbc:sqlite:dcoffee.db";
         
-        ////connect
+         ////connect
         try {
             conn = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been establish.");
