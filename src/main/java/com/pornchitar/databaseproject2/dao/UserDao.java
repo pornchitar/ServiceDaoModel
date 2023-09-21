@@ -4,7 +4,13 @@
  */
 package com.pornchitar.databaseproject2.dao;
 
+import com.pornchitar.databaseproject2.helper.DatabaseHelper;
 import com.pornchitar.databaseproject2.model.User;
+import com.sun.jdi.connect.spi.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +26,26 @@ public class UserDao implements Dao<User>{
 
     @Override
     public List<User> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<User> list = new ArrayList();
+        String sql = "SELECT * FROM user";
+        java.sql.Connection conn = DatabaseHelper.getConnect();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                User user = new User();
+                user.setId(rs.getInt("user_id"));
+                user.setName(rs.getString("user_name"));
+                user.setRole(rs.getInt("user_role"));
+                user.setGender(rs.getString("user_gender"));
+                user.setPassword(rs.getString("user_password"));
+                
+                list.add(user);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
     }
 
     @Override
