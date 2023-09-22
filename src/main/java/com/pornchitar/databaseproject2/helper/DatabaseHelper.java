@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class DatabaseHelper {
     private static Connection conn = null;
-    private static String URL = "jdbc:sqlite:dcoffe.db";
+    private static String URL = "jdbc:sqlite:dcoffee.db";
     static{
         getConnect();
     }

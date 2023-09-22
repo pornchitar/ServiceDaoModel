@@ -17,7 +17,7 @@ public class ConnectDatabase {
 
     public static void main(String[] args) {
         Connection conn = null;
-            String url = "jdbc:sqlite:dcoffe.db";
+            String url = "jdbc:sqlite:dcoffee.db";
         try {           
             conn = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been establish.");
