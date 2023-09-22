@@ -37,6 +37,23 @@ public class UserDao implements Dao<User> {
         }
         return user;
     }
+    
+    public User getByName(String name) {
+        User user = null;
+        String sql = "SELECT * FROM user WHERE user_name=?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                user = User.fromRS(rs);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return user;
+    }
 
     @Override
     public List<User> getAll() {
