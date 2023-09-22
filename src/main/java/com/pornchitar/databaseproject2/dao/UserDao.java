@@ -30,12 +30,7 @@ public class UserDao implements Dao<User> {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                user = new User();
-                user.setId(rs.getInt("user_id"));
-                user.setName(rs.getString("user_name"));
-                user.setRole(rs.getInt("user_role"));
-                user.setGender(rs.getString("user_gender"));
-                user.setPassword(rs.getString("user_password"));
+                user = User.fromRS(rs);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -52,12 +47,7 @@ public class UserDao implements Dao<User> {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("user_id"));
-                user.setName(rs.getString("user_name"));
-                user.setRole(rs.getInt("user_role"));
-                user.setGender(rs.getString("user_gender"));
-                user.setPassword(rs.getString("user_password"));
+                User user = User.fromRS(rs);
 
                 list.add(user);
             }
@@ -67,21 +57,16 @@ public class UserDao implements Dao<User> {
         return list;
     }
     
-    public List<User> getAllOrderBy(String name, String order) {
+    @Override
+    public List<User> getAll(String where, String order) {
         ArrayList<User> list = new ArrayList();
-        String sql = "SELECT * FROM user ORDER BY "+ name +" "+ order;
-        System.out.println(sql);
+        String sql = "SELECT * FROM user where "+ where +" ORDER BY"+ order;
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("user_id"));
-                user.setName(rs.getString("user_name"));
-                user.setRole(rs.getInt("user_role"));
-                user.setGender(rs.getString("user_gender"));
-                user.setPassword(rs.getString("user_password"));
+                User user = User.fromRS(rs);
 
                 list.add(user);
             }

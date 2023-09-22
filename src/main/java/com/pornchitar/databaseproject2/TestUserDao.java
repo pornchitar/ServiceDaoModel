@@ -35,7 +35,7 @@ public class TestUserDao {
 //            System.out.println(u);
 //        }
 
-        for(User u: userDao.getAllOrderBy("user_name", "asc")){
+        for(User u: userDao.getAll("user_name like 'u%' ", "user_name asc, user_gender desc ")){
             System.out.println(u);
         }
         DatabaseHelper.close();

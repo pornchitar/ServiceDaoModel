@@ -4,6 +4,11 @@
  */
 package com.pornchitar.databaseproject2.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ASUS
@@ -80,5 +85,18 @@ public class User {
         return "User{" + "id=" + id + ", name=" + name + ", password=" + password + ", role=" + role + ", gender=" + gender + '}';
     }
     
-    
+    public static User fromRS(ResultSet rs){
+        User user = new User();
+        try {
+            user.setId(rs.getInt("user_id"));
+            user.setName(rs.getString("user_name"));
+            user.setRole(rs.getInt("user_role"));
+            user.setGender(rs.getString("user_gender"));
+            user.setPassword(rs.getString("user_password"));
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return user;
+    }
 }
