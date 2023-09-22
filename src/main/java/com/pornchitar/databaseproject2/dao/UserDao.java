@@ -113,8 +113,18 @@ public class UserDao implements Dao<User> {
     }
 
     @Override
-    public User delete(User obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int delete(User obj) {
+        String sql = "DELETE FROM user WHERE user_id=?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, obj.getId());
+            int ret = stmt.executeUpdate();
+            return ret;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return -1;
     }
 
 }
